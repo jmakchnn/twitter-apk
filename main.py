@@ -69,6 +69,7 @@ Changelogs:
 def main():
     # get latest version
     url: str = "https://www.apkmirror.com/apk/x-corp/twitter/"
+    # 重要：改为你自己的仓库地址
     repo_url: str = "jmakchnn/twitter-apk"
 
     versions = apkmirror.get_versions(url)
@@ -85,6 +86,7 @@ def main():
         repo_url
     )
 
+    # 重要修改：第一次构建逻辑
     if last_build_version is None:
         print("首次构建：没有找到之前的构建版本，开始构建...")
         print(f"构建版本: {latest_version.version}")
@@ -93,12 +95,11 @@ def main():
 
     # Begin stuff
     if last_build_version.tag_name != latest_version.version:
-        print(f"New version found: {latest_version.version}")
+        print(f"发现新版本: {latest_version.version}")
+        process(latest_version)
     else:
-        print("No new version found")
+        print("没有发现新版本")
         return
-    
-    process(latest_version)
 
 
 def manual(version:str):
