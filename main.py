@@ -86,10 +86,10 @@ def main():
     )
 
     if last_build_version is None:
-    print("首次构建：没有找到之前的构建版本，开始构建...")
-    print(f"构建版本: {latest_version.version}")
-    process(latest_version)
-    return
+        print("首次构建：没有找到之前的构建版本，开始构建...")
+        print(f"构建版本: {latest_version.version}")
+        process(latest_version)
+        return
 
     # Begin stuff
     if last_build_version.tag_name != latest_version.version:
