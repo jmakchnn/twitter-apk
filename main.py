@@ -1,9 +1,8 @@
 from apkmirror import Version, Variant
 from build_variants import build_apks
-from download_bins import download_apkeditor, download_revanced_bins
+from download_bins import download_apkeditor, download_morphe_cli, download_release_asset
 import github
-from utils import panic, merge_apk, publish_release, report_to_telegram
-from download_bins import download_release_asset
+from utils import panic, merge_apk, publish_release
 import apkmirror
 import os
 import argparse
@@ -16,7 +15,6 @@ def get_latest_release(versions: list[Version]) -> Version | None:
 
 
 def process(latest_version: Version):
-    # get bundle and universal variant
     variants: list[Variant] = apkmirror.get_variants(latest_version)
 
     download_link: Variant | None = None
@@ -39,11 +37,11 @@ def process(latest_version: Version):
     else:
         print("apkm is already merged")
 
-    download_revanced_bins()
+    download_morphe_cli(include_prereleases=True)
 
     print("Downloading patches")
     pikoRelease = download_release_asset(
-        "crimera/piko", "^patches.*rvp$", "bins", "patches.rvp", include_prereleases=True
+        "crimera/piko", "^patches.*mpp$", "bins", "patches.mpp", include_prereleases=True
     )
 
     message: str = f"""
